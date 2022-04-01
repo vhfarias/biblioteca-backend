@@ -10,7 +10,6 @@ const openDb = async () => {
 }
 
 const build = async () => {
-  let db = await openDb();
   let buildQuery = `CREATE TABLE IF NOT EXISTS Books(
     id INTEGER PRIMARY KEY,
     titulo TEXT NOT NULL,
@@ -20,13 +19,24 @@ const build = async () => {
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL
     )`;
+  let db = await openDb();
   await db.run(buildQuery);
   await db.close();
 }
 
-
+const insert = async (book) => {
+  let insertQuery = `INSERT INTO Books(titulo, autor, editora, foto) VALUES (?, ?, ?, ?)`;
+  let db = await openDb();
+  return db.run(insertQuery, [book.titulo, book.autor, book.editora, book.foto])
+  /*   .catch(e => {
+      console.error(e.message);
+      Promise.reject(e);
+    }); */
+  //db.close();
+}
 
 module.exports = {
   openDb,
-  build
+  build,
+  insert
 }
