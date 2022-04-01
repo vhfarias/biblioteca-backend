@@ -59,4 +59,20 @@ routes.get('/obras', async (req, res) => {
     })
 })
 
+routes.put('/obras/:id', async (req, res) => {
+  let { id } = req.params;
+  booksDb.update(id, req.body)
+    .then(resolve => {
+      return booksDb.selectById(id)
+      //res.json({ 'status': 'success' })
+    })
+    .then(resolve => {
+      res.json(resolve);
+    })
+    .catch(e => {
+      res.statusCode = 400;
+      res.json({ 'error': e.message });
+    })
+})
+
 module.exports = routes;

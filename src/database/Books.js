@@ -48,11 +48,24 @@ const selectAll = async () => {
   return db.all(postQuery);
 }
 
+const update = async (id, book) => {
+  let updateQuery = `UPDATE Books SET titulo = ?, autor = ?, editora = ?, foto = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?`;
+  let oldBook = await selectById(id);
+  //cria um objeto com todas as propriedades da tabela Books comparando as chaves do objeto parâmetro book e de oldBook
+  let newBook = Object.keys(oldBook).reduce((obj, key) => {
+    obj[key] = book.hasOwnProperty(key) ? book[key] : oldBook[key];
+    return obj;
+  }, {})
+  let db = await openDb();
+  return db.get(updateQuery, [newBook.titulo, newBook.autor, newBook.editora, newBook.foto, id])
+}
+
 module.exports = {
   openDb,
   build,
   insert,
   remove,
   selectById,
-  selectAll
+  selectAll,
+  update
 }
