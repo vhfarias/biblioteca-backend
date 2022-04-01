@@ -36,9 +36,23 @@ const remove = async (id) => {
   return db.run(deleteQuery, [id]);
 }
 
+const selectById = async (id) => {
+  let selectQuery = `SELECT * FROM Books WHERE id = ?`;
+  let db = await openDb();
+  return db.get(selectQuery, [id]);
+}
+
+const selectAll = async () => {
+  let postQuery = `SELECT * FROM Books`;
+  let db = await openDb();
+  return db.all(postQuery);
+}
+
 module.exports = {
   openDb,
   build,
   insert,
-  remove
+  remove,
+  selectById,
+  selectAll
 }

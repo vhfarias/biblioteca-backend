@@ -36,4 +36,27 @@ routes.delete('/obras/:id', async (req, res) => {
     })
 })
 
+routes.get('/obras/:id', async (req, res) => {
+  let { id } = req.params;
+  booksDb.selectById(id)
+    .then(resolve => {
+      res.json(resolve);
+    })
+    .catch(e => {
+      res.statusCode = 400;
+      res.json({ 'error': e.message });
+    })
+})
+
+routes.get('/obras', async (req, res) => {
+  booksDb.selectAll()
+    .then(resolve => {
+      res.json(resolve);
+    })
+    .catch(e => {
+      res.statusCode = 400;
+      res.json({ 'error': e.message });
+    })
+})
+
 module.exports = routes;
