@@ -28,15 +28,17 @@ const insert = async (book) => {
   let insertQuery = `INSERT INTO Books(titulo, autor, editora, foto) VALUES (?, ?, ?, ?)`;
   let db = await openDb();
   return db.run(insertQuery, [book.titulo, book.autor, book.editora, book.foto])
-  /*   .catch(e => {
-      console.error(e.message);
-      Promise.reject(e);
-    }); */
-  //db.close();
+}
+
+const remove = async (id) => {
+  let deleteQuery = `DELETE FROM Books WHERE id = ?`;
+  let db = await openDb();
+  return db.run(deleteQuery, [id]);
 }
 
 module.exports = {
   openDb,
   build,
-  insert
+  insert,
+  remove
 }

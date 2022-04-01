@@ -19,4 +19,21 @@ routes.post('/obras', async (req, res) => {
     })
 })
 
+routes.delete('/obras/:id', async (req, res) => {
+  let { id } = req.params;
+  booksDb.remove(id)
+    .then(resolve => {
+      res.statusCode = 200;
+      if (resolve.changes > 0)
+        res.json({ 'status': 'success' });
+      else {
+        res.json({ 'status': 'id not found' })
+      }
+    })
+    .catch(e => {
+      res.statusCode = 400;
+      res.json({ 'error': e.message })
+    })
+})
+
 module.exports = routes;
