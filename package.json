@@ -2,7 +2,7 @@
   "name": "biblioteca-backend",
   "version": "1.0.0",
   "description": "<br />\r <p align=\"center\">\r     <img src=\"https://i.pinimg.com/originals/dd/64/da/dd64da585bc57cb05e5fd4d8ce873f57.png\" alt=\"Logo\" width=\"200\">",
-  "main": "index.js",
+  "main": "./src/server.js",
   "dependencies": {
     "express": "^4.17.3",
     "nodemon": "^2.0.15",
